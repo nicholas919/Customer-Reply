@@ -1,0 +1,115 @@
+#aktivasi{
+	margin-left: 20px;
+	font-size:40px;
+	position: fixed;
+	left:55%;
+	right:45%;
+	bottom:0;
+	transform: rotate(45deg)
+}
+}
+
+body{
+	font-family: calibri;
+}
+
+.kotak :hover{
+	background-color: #47d147;
+	color:white;
+	cursor:pointer;
+}
+
+.kontainer{
+	margin:3px;
+	margin-top:90px;
+	padding-left:0px;
+}
+
+.judul{
+	position: fixed;
+	background: white;
+	opacity: 0.8;
+	color:#404040;
+	top:0;
+	left:0;
+	right: 0;
+	border-bottom:1px solid #f2f2f2;
+	padding:10px 0px 10px 0px;
+
+}
+.judul  h2{
+	font-weight: bolder;
+	text-align: center;
+	color:#404040;
+	margin:0px;
+	font-size: 30px;
+	display: block;
+	cursor: default;
+	-moz-user-select: none;
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+}
+
+#tambah{
+	margin-left: 20px;
+	font-size:40px;
+	position: fixed;
+	right:0;
+	bottom:0;
+	margin-right: 20px;
+	margin-bottom: 20px;
+
+}
+
+
+li{
+	border-radius: 100px;
+	display:grid;
+ 	grid-template-columns : 4fr auto auto;
+ 	grid-gap: 5px;
+ 	cursor: pointer;
+ 	margin-top: 5px;
+}
+
+.collapsible-body{
+	background-color: #404040;
+	margin-bottom: 5px;
+	cursor:default;
+
+}
+
+div .collapsible-header{
+	margin-top:0px;
+	display:grid;
+ 	grid-template-columns : 4fr auto auto;
+ 	grid-gap: 5px;
+ 	cursor: pointer;
+ 	margin-bottom: 0px;
+ 	-moz-user-select: none;
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+}
+
+
+
+textarea{
+	white-space: pre-wrap;
+	white-space: pre-line;
+}
+
+medium{
+	text-align:center;
+	display: block;
+	cursor: default;
+	-moz-user-select: none;
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+	opacity: 0.8;
+}
+
