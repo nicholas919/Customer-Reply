@@ -2,6 +2,25 @@ db.collection('reply').onSnapshot(snapshot =>{
     let changes = snapshot.docChanges();
     changes.forEach(change =>{
         if(change.type == 'added'){
+            function newSort() {
+            var items = $('.custreply > li').get();
+            items.sort(function(a, b) {
+            var keyA = $(a).text();
+            var keyB = $(b).text();
+
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+              });
+            var ul = $('.custreply');
+            $.each(items, function(i, li) {
+            ul.append(li);
+            });
+  }
+
+$(document).ready(function() {
+  newSort();
+});
             daftarReply(change.doc);
         } else if (change.type == 'removed'){
             let li = custReply.querySelector('[data-id=' + change.doc.id + ']');
@@ -54,8 +73,9 @@ hapus.addEventListener('click', function(e){
   });
 
 
-}
 
+
+}
 
 
 
@@ -82,4 +102,3 @@ document.addEventListener('DOMContentLoaded', function() {
   M.Collapsible.init(items);
 
 });
-
