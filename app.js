@@ -1,5 +1,24 @@
 db.collection('reply').onSnapshot(snapshot =>{
     let changes = snapshot.docChanges();
+      function newSort() {
+  var items = $('.custreply > li').get();
+  items.sort(function(a, b) {
+    var keyA = $(a).text();
+    var keyB = $(b).text();
+
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+  });
+  var ul = $('.custreply');
+  $.each(items, function(i, li) {
+    ul.append(li);
+  });
+}
+
+$(document).ready(function() {
+  newSort();
+});
     changes.forEach(change =>{
         if(change.type == 'added'){
             daftarReply(change.doc);
