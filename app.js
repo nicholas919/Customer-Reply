@@ -1,7 +1,6 @@
+$(document).ready(function() {
 db.collection('reply').onSnapshot(snapshot =>{
-    let changes = snapshot.docChanges();
-      function newSort() {
-  var items = $('.custreply > li').get();
+    var items = $('.custreply > li').get();
   items.sort(function(a, b) {
     var keyA = $(a).text();
     var keyB = $(b).text();
@@ -14,11 +13,11 @@ db.collection('reply').onSnapshot(snapshot =>{
   $.each(items, function(i, li) {
     ul.append(li);
   });
-}
+  })
+})
 
-$(document).ready(function() {
-  newSort();
-});
+db.collection('reply').onSnapshot(snapshot =>{
+    let changes = snapshot.docChanges();
     changes.forEach(change =>{
         if(change.type == 'added'){
             daftarReply(change.doc);
