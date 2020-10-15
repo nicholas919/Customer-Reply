@@ -88,8 +88,8 @@ listModalReply.appendChild(modal);
 
  let copas = document.querySelector("#copas" + doc.id);
  copas.addEventListener('click', function (e) {
-    document.querySelector('#header' + doc.id).click();
-    let text = document.querySelector("#keterangan" + doc.id);
+    document.querySelector('#header-tampilan' + doc.id).click();
+    let text = document.querySelector("#keterangan-tampilan" + doc.id);
     let selection = window.getSelection();
     let range = document.createRange();
     range.selectNodeContents(text);
