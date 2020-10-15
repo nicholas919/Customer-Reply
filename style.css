@@ -1,3 +1,10 @@
+.konfigurasi{
+	display: flex;
+	justify-content: center;
+	gap:5px;
+	margin-top: 10px;
+}
+
 #aktivasi{
 	margin-left: 20px;
 	font-size:40px;
@@ -7,9 +14,8 @@
 	bottom:0;
 	transform: rotate(45deg)
 }
-}
 
-body{
+*{
 	font-family: calibri;
 }
 
@@ -23,6 +29,7 @@ body{
 	margin:3px;
 	margin-top:90px;
 	padding-left:0px;
+	overflow-wrap: anywhere;
 }
 
 .judul{
@@ -35,6 +42,7 @@ body{
 	right: 0;
 	border-bottom:1px solid #f2f2f2;
 	padding:10px 0px 10px 0px;
+	z-index: 2;
 
 }
 .judul  h2{
@@ -53,14 +61,13 @@ body{
 }
 
 #tambah{
-	margin-left: 20px;
-	font-size:40px;
+	font-size:32px;
 	position: fixed;
 	right:0;
 	bottom:0;
-	margin-right: 20px;
-	margin-bottom: 20px;
-
+	width: 100%;
+	display: block;
+	line-height: 48px;
 }
 
 
@@ -71,12 +78,14 @@ li{
  	grid-gap: 5px;
  	cursor: pointer;
  	margin-top: 5px;
+ 	grid-row-gap: 0px;
 }
 
 .collapsible-body{
-	background-color: #404040;
+	background-color: #eeeeee !important;
 	margin-bottom: 5px;
 	cursor:default;
+	font-size: 16px;
 
 }
 
@@ -92,6 +101,7 @@ div .collapsible-header{
 	-ms-user-select:none; 
 	user-select:none;
 	-o-user-select:none;
+	font-size: 18px;
 }
 
 
@@ -113,3 +123,22 @@ medium{
 	opacity: 0.8;
 }
 
+@media only screen and (max-width: 700px){
+
+li{
+	grid-template-columns : 5fr auto ;
+}
+
+.hapus{
+	display: none !important;
+}
+
+div .collapsible-header{
+	font-size: 17px;
+}
+
+h4{
+font-size: 24px !important;
+}
+
+}

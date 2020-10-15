@@ -16,21 +16,22 @@
 
 <div class="judul">
   <h2> Customer <span1 style="color: #1976d2;">Reply</span1></h2>
-  <medium>v1.2</medium>
+  <medium>v1.3</medium>
 </div>
 
 
 <div class="kontainer" id="kontainer">
-  <!-- GUIDE LIST -->
   <div class="container" id="container" style="margin-top: 40px;">
-    <ul class="collapsible z-depth-0 custreply" style="border: none;">
+    <ul id="custreply" class="collapsible z-depth-0" style="border: none;">
     </ul>
   </div>
 </div>
 
+<div id="list-modal-reply"></div>
+
 <div id="modal-reply" class="modal">
     <div class="modal-content">
-      <h4 class="center-align">Menambahkan Replies Baru</h4><br />
+      <h4 class="center-align">Menambahkan Replies Baru</h4>
       <form id="reply-form">
         <div class="input-field">
           <input type="text" id="header" autocomplete="off" required/>
@@ -44,11 +45,11 @@
         <button type="submit" class="btn blue darken-3 z-depth-0 simpan" onkeyup="submit();">Simpan</button>
       </form>
     </div>
-  </div>
+</div>
 
 
 <div style="margin-bottom:100px;"></div>
-<a class="btn-floating btn-large waves-effect waves-light blue darken-2 modal-trigger" id="tambah" data-target="modal-reply">+</a>
+<a class="btn-large waves-effect waves-light blue darken-2 modal-trigger" id="tambah" data-target="modal-reply">+</a>
 
 
 <script>
