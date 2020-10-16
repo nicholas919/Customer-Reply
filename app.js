@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 $(document).ready(function() {
 db.collection('reply').onSnapshot(snapshot =>{
-    var items = $('.custreply > li').get();
+    var items = $('#custreply > li').get();
   items.sort(function(a, b) {
     var keyA = $(a).text();
     var keyB = $(b).text();
@@ -20,7 +20,7 @@ db.collection('reply').onSnapshot(snapshot =>{
     if (keyA > keyB) return 1;
     return 0;
   });
-  var ul = $('.custreply');
+  var ul = $('#custreply');
   $.each(items, function(i, li) {
     ul.append(li);
   });
