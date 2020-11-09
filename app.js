@@ -163,7 +163,6 @@ hapusKedua.addEventListener('click', function(e){
     e.preventDefault();
   db.collection('reply').doc(doc.id).update({
     header : document.querySelector('#header' + doc.id).value,
-    penggunaUID : auth.currentUser.uid,
     keterangan : document.querySelector('#keterangan' + doc.id).value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
       instance.close();
@@ -185,7 +184,8 @@ createForm.addEventListener('submit', (e) => {
 
     db.collection('reply').add({
         header: createForm['header'].value,
-        keterangan: createForm['keterangan'].value.replace(/\n\r?/g, '<br/>') 
+        keterangan: createForm['keterangan'].value.replace(/\n\r?/g, '<br/>'),
+        penggunaUID: auth.currentUser.uid
     }).then(() => {
         const modal = document.querySelector('#modal-reply');
         M.Modal.getInstance(modal).close();
