@@ -1,3 +1,31 @@
+auth.onAuthStateChanged(user => {
+  if(user){
+  user.getIdTokenResult().then(idTokenResult => {
+    user.adminKantor = idTokenResult.claims.adminKantor;
+    user.member = idTokenResult.claims.member;
+    setupUI(user);
+  })
+    db.collection('reply').onSnapshot(snapshot =>{
+        let changes = snapshot.docChanges();
+        changes.forEach(change =>{
+            if(change.type == 'added'){
+              if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
+                daftarReply(change.doc);
+                setupUI(user);
+                }
+            } else if (change.type == 'removed'){
+                let li = custReply.querySelector('[data-id="' + change.doc.id + '"]');
+                custReply.removeChild(li);
+            } else if (change.type == 'modified'){
+                updateReply(change.doc);
+            }
+        })
+    })
+  setupUI(user);
+} else {
+  setupUI();
+}
+})
 
 // setup materialize components
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,37 +37,45 @@ document.addEventListener('DOMContentLoaded', function() {
   M.Collapsible.init(items);
 
 });
-$(document).ready(function() {
-db.collection('reply').onSnapshot(snapshot =>{
-    var items = $('#custreply > li').get();
-  items.sort(function(a, b) {
-    var keyA = $(a).text();
-    var keyB = $(b).text();
 
-    if (keyA < keyB) return -1;
-    if (keyA > keyB) return 1;
-    return 0;
-  });
-  var ul = $('#custreply');
-  $.each(items, function(i, li) {
-    ul.append(li);
-  });
-  })
-})
+const setupUI = (user) => {
+  if(user){
+  let fitur = document.querySelectorAll('.fitur');
+      $(document).ready(function() {
+      db.collection('reply').onSnapshot(snapshot =>{
+          let items = $('#custreply > li').get();
+        items.sort(function(a, b) {
+          let keyA = $(a).text();
+          let keyB = $(b).text();
 
-db.collection('reply').onSnapshot(snapshot =>{
-    let changes = snapshot.docChanges();
-    changes.forEach(change =>{
-        if(change.type == 'added'){
-            daftarReply(change.doc);
-        } else if (change.type == 'removed'){
-            let li = custReply.querySelector('[data-id=' + change.doc.id + ']');
-            custReply.removeChild(li);
-        } else if (change.type == 'modified'){
-            updateReply(change.doc);
-        }
-    })
-})
+          if (keyA < keyB) return -1;
+          if (keyA > keyB) return 1;
+          return 0;
+        });
+        let ul = $('#custreply');
+        $.each(items, function(i, li) {
+          ul.append(li);
+        });
+        })
+      })
+
+    if(user.adminKantor == true || user.member == true || user.email == 'useradmin@galaxy.id'){
+      document.querySelector('#tambah').style.display = 'block';
+    }
+    document.querySelector('#keluar').style.display = 'block';
+    document.querySelector('#blue-layer').style.display = 'none';
+    document.querySelector('#form-masuk').style.display = 'none';
+    document.querySelector('#customer-reply').style.display = 'block';
+  } else {
+    document.querySelector('#keluar').style.display = 'none';
+    document.querySelector('#blue-layer').style.display = 'block';
+    document.querySelector('#form-masuk').style.display = 'block';
+    document.querySelector('#customer-reply').style.display = 'none';
+    document.querySelector('#tambah').style.display = 'none';
+  }
+}
+
+
 
 
 
@@ -57,10 +93,10 @@ function daftarReply(doc){
 
   li.innerHTML = `
         <div id="header-tampilan${doc.id}" class="collapsible-header grey lighten-5 card-panel"> ${header} </div>
-        <button id="copas${doc.id}" class="btn waves-effect waves-light btn-large blue darken-2">Copy</button>
-        <button id="hapus${doc.id}" class="hapus btn waves-effect waves-light btn-large red lighten-1">x</button>
+        <button id="copas${doc.id}" class="btn fiturwaves-effect waves-light btn-large blue darken-2">Copy</button>
+        <button id="hapus${doc.id}" class="hapus fitur btn waves-effect waves-light btn-large red lighten-1">x</button>
         <div class="collapsible-body ${doc.id}"> 
-        <div id="keterangan-tampilan${doc.id}">${keterangan}</div> 
+        <div id="keterangan-tampilan${doc.id}" class="keterangan-tampilan">${keterangan}</div> 
         <div class="konfigurasi"><a id="edit${doc.id}" class="btn waves-effect waves-light btn-medium amber lighten-1 modal-trigger" data-target="modal-reply${doc.id}">Edit</a> <a id="hapusKedua${doc.id}" class="btn waves-effect waves-light btn-medium red lighten-1">Hapus</a></div>
         </div>
 `
@@ -78,7 +114,7 @@ function daftarReply(doc){
           <textarea onfocus="auto_grow(this)" id="keterangan${doc.id}" class="materialize-textarea" autocomplete="off" required/>${keterangan.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
         </div>
         <div class="btn red darken-3 z-depth-0 modal-close dismiss">Tutup</div>
-        <button type="submit" class="btn blue darken-3 z-depth-0 simpan" onkeyup="submit();">Simpan</button>
+        <button type="submit" class="btn blue darken-3 z-depth-0 simpan">Simpan</button>
       </form>
     </div>
 `
@@ -127,6 +163,7 @@ hapusKedua.addEventListener('click', function(e){
     e.preventDefault();
   db.collection('reply').doc(doc.id).update({
     header : document.querySelector('#header' + doc.id).value,
+    penggunaUID : auth.currentUser.uid,
     keterangan : document.querySelector('#keterangan' + doc.id).value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
       instance.close();
@@ -160,3 +197,33 @@ function auto_grow(element){
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
 }
+
+
+const formMasuk = document.querySelector('#form-masuk');
+formMasuk.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const email = formMasuk['email'].value;
+  const password = formMasuk['password'].value;
+
+  auth.signInWithEmailAndPassword(email, password).then((cred) => {
+    formMasuk.reset();
+    console.clear();
+  }, err => {
+    if(err.code == 'auth/user-not-found'){
+        alert('User tidak ditemukan.')
+    }else if(err.code == 'auth/wrong-password'){
+        alert('Email atau Password yang anda masukkan salah!')
+    } 
+  });
+
+});
+
+const keluar = document.querySelector('#keluar');
+keluar.addEventListener('click', (e) => {
+    e.stopImmediatePropagation();
+    let konfirmasi = confirm("Apa anda yakin ingin keluar?");
+    if(konfirmasi){
+    auth.signOut();
+    }
+});

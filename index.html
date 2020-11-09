@@ -7,18 +7,39 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-functions.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 <body>
 
+<form id="form-masuk">
+  <div id="judul-login">Login</div>
+    <div class="input-field">
+      <label>Email</label>
+      <input type="email" id="email" autocomplete="off" required>
+    </div>
+    <div class="input-field">
+    <label>Password</label>
+      <input type="password" id="password" autocomplete="off" minlength="6"
+         maxlength="13" required>
+    </div>
+  <button type="submit" id="form-tombol-masuk" class="btn waves-effect waves-light blue darken-1 z-depth-0">Masuk</button>
+</form>
+
+<i class="fa fa-power-off tooltipped" id="keluar"></i>
+
+<div id="blue-layer"></div>
+<div id="customer-reply">
 <div class="judul">
   <h2> Customer <span1 style="color: #1976d2;">Reply</span1></h2>
-  <medium>v1.3</medium>
+  <medium>v1.4</medium>
 </div>
-
 
 <div class="kontainer" id="kontainer">
   <div class="container" id="container" style="margin-top: 40px;">
@@ -42,7 +63,7 @@
           <label>Keterangan</label>
         </div>
         <button class="btn red darken-3 z-depth-0 modal-close dismiss">Tutup</button>
-        <button type="submit" class="btn blue darken-3 z-depth-0 simpan" onkeyup="submit();">Simpan</button>
+        <button type="submit" class="btn blue darken-3 z-depth-0 simpan">Simpan</button>
       </form>
     </div>
 </div>
@@ -50,22 +71,26 @@
 
 <div style="margin-bottom:100px;"></div>
 <a class="btn-large waves-effect waves-light blue darken-2 modal-trigger" id="tambah" data-target="modal-reply">+</a>
-
+</div>
 
 <script>
+  // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyCQDpQhoSNb3l0C6Ma7STPBzRTJEdH1Kco",
-    authDomain: "customer-e4b84.firebaseapp.com",
-    databaseURL: "https://customer-e4b84.firebaseio.com",
-    projectId: "customer-e4b84",
-    storageBucket: "customer-e4b84.appspot.com",
-    messagingSenderId: "257000160351",
-    appId: "1:257000160351:web:8114ae90a68c6d930cafea",
-    measurementId: "G-K9D3KM5S9R"
+    apiKey: "AIzaSyAop05eMV0uuIKUgJvbaKHYvpU1kVE8v8A",
+    authDomain: "app-galaxy-b4ae6.firebaseapp.com",
+    databaseURL: "https://app-galaxy-b4ae6.firebaseio.com",
+    projectId: "app-galaxy-b4ae6",
+    storageBucket: "app-galaxy-b4ae6.appspot.com",
+    messagingSenderId: "964768836920",
+    appId: "1:964768836920:web:06f1c2ea5bbb0bcec3a5cd",
+    measurementId: "G-70741L7RL0"
   };
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
 
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const functions = firebase.functions();
 </script>
 <script src="app.js"></script>
 </body>
